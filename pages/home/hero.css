@@ -1,0 +1,110 @@
+@font-face {
+  font-family: sf_pro;
+  src: url(../../assets/fonts/SFPRODISPLAYREGULAR.OTF);
+  font-weight:normal;
+}
+
+@font-face {
+  font-family: sf_pro;
+  src: url(../../assets/fonts/SFPRODISPLAYBOLD.OTF);
+  font-weight:bold;
+}
+
+@font-face {
+  font-family: pearl;
+  src: url(../../assets/fonts/TAN-Pearl-Regular.otf);
+  font-weight:normal;
+
+  
+}
+
+ul{
+    list-style: none;
+}
+
+.hero{
+    padding: 112px 64px;
+}
+
+.background_text_container{
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+    pointer-events: none;
+}
+
+.background_text{
+    display: flex;
+    padding: 0 0 0 8rem;
+    font-size: clamp(12rem, 16vw, 16vw);
+    letter-spacing: 50%;
+    font-family: pearl;
+    user-select: none;
+}
+
+.socials{
+    padding: 0 160px 0 0;
+    display: flex;
+    justify-content: end;
+
+}
+
+.socials_list{
+    display: flex;
+    gap: 56px;
+    align-items: center;
+}
+
+.socials_list_element{
+    width: 28px;
+    height: 28px;
+}
+
+.socials_link{
+    width: 100%;
+    height: 100%;
+}
+
+.socials_link img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.right_align{
+    text-align: right;
+}
+
+.left_align{
+    text-align: left;
+}
+
+.more_info{
+    display: grid;
+    gap: 12px;
+    padding: max(0rem, min(8vw, 3.5rem)) 112px 0 112px;
+}
+
+.more_info_top{
+    width: 420px;
+    display: flex;
+    justify-self: start;
+}
+
+.more_info_btm{
+    width: 420px;
+    display: flex;
+    justify-self: end;
+}
+
+.works_link{
+    text-decoration: none;
+    color: #000;
+    display: flex;
+    gap: 12px;
+    border-bottom: #000 1px solid;
+    width: fit-content;
+    position: absolute;
+    bottom: 48px;
+    left: calc(50% - 78px);
+}

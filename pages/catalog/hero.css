@@ -1,0 +1,81 @@
+.heading{
+    display: flex;
+    flex-direction: column;
+    margin: 64px 102px 0 102px ;
+    gap: 24px;
+}
+
+.heading_type{
+    font-size: 24px;
+    color: #8A8A8A;
+    letter-spacing: 15%;
+}
+
+.heading_main{
+    font-size: 48px;
+    letter-spacing: 15%;
+}
+
+.catalog_box{
+    display: flex;
+    justify-content: center;
+    margin: 36px 102px; 
+}
+
+.catalog {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 196px;
+    gap: 32px 64px;
+    width: 100%; 
+}
+
+.reel_box{
+    border-radius: 12px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    transition: all ease-out .1s
+}
+
+.reel_box:hover{
+    /* filter: brightness(0.6); */
+    box-shadow: inset 0 0 400px rgba(0,0,0,1);
+    transition: all ease-out .1s
+}
+
+.reel{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.play_btn{
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.reel_box:hover .play_btn {
+    opacity: 1;
+}
+
+/* grid spans */
+.short{
+    grid-row: span 2;
+}
+
+.tall{
+    grid-row: span 3;
+}
+
