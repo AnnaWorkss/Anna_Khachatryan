@@ -103,11 +103,14 @@ ul{
     justify-self: end;
 }
 
+.link_container{
+    display: flex;
+    justify-content: center;
+}
+
 .link_section{
     display: flex;
     gap: 32px;
-    justify-self: center;
-
 }
 
 .works_link{
