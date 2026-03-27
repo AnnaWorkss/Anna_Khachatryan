@@ -24,9 +24,9 @@
 }
 
 .top_info{
-    margin-top: 80px;
+    margin-top: clamp(32px, 5vw, 80px);
     width: 100%;
-    padding: 0 121px;
+    padding: 0 clamp(20px, 8vw, 121px);
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
@@ -35,7 +35,8 @@
 
 .l_info{
     margin-bottom: 24px;
-    width: 550px;
+    max-width: 550px;
+    width: 100%;
     line-height: 150%;
 }
 
@@ -50,7 +51,7 @@
 }
 
 .date{
-    letter-spacing: 15%;
+    letter-spacing: 0.15em;
 }
 
 .myself_block{
@@ -72,11 +73,11 @@
 
 .myself_txt{
     font-family: pearl;
-    font-size: clamp(10rem , 10.521vw , 12.625rem);
+    font-size: clamp(6rem , 10.5vw , 12.6rem);
     color: #F7F9FF;
-    letter-spacing: 26%;
+    letter-spacing: 0.26em;
     position: absolute;
-    left: -64px;
+    left: clamp(-64px, -5vw, 0px);
     pointer-events: none;
 }
 
@@ -85,16 +86,17 @@
     display: flex;
     justify-content: end;
     text-align: justify;
-    width: 30%;
-    margin-left: 70%;
-    padding-right: 98px;
+    width: clamp(30%, 300px, 40%);
+    margin-left: auto;
+    padding-right: clamp(20px, 6vw, 98px);
     box-sizing: border-box;
 }
 
 .btm_info span{
     display: flex;
     line-height: 150%;
-    width: 420px;
+    max-width: 420px;
+    width: 100%;
 }
 .image {
     position: absolute;
@@ -122,6 +124,65 @@
 
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 0 20px 48px;
+        align-items: flex-start;
+    }
+    .top_info {
+        margin-top: 32px;
+        padding: 0;
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+    .l_info {
+        width: 100%;
+        margin-bottom: 0;
+    }
+    .myself_block {
+        width: 100%;
+        margin-left: 0;
+        margin-top: -100px;
+        overflow: hidden;
+        order: 2;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+    }
+    .myself_bg {
+        height: 200px;
+    }
+    .myself_txt {
+        font-size: clamp(2.5rem, 15vw, 4rem);
+        left: unset;
+        position: absolute;
+    }
+    .btm_info {
+        width: 100%;
+        margin-left: 0;
+        padding-right: 0;
+        justify-content: flex-start;
+        text-align: left;
+        margin-top: 20px;
+        order: 3;
+    }
+    .btm_info span {
+        width: 100%;
+    }
+    .image {
+        position: relative;
+        z-index: 2;
+        width: 240px;
+        height: 340px;
+        rotate: 8deg;
+        margin: 32px auto 0;
+        order: 1;
+        align-self: center;
+    }
 }
 
 

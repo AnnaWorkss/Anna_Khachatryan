@@ -4,35 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="../../components/header.css">
     <link rel="stylesheet" href="hero.css">
+    <script src="../../components/header.js"></script>
 </head>
 <body>
-    <header class="header">
-        <nav class="navbar">
-            <ul class="navbar">
-                <li class="navbar_section_name, active_page">
-                    <a href="../home/index.html">Home</a>
-                </li>
-                <li class="navbar_section_devider"></li>
-                <li class="navbar_section_name">
-                    <a href="../catalog/index.html">Catalog</a>
-                </li>
-                <li class="navbar_section_devider"></li>
-                <li class="navbar_section_name">
-                    <a href="../about/index.html">About</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="logo">
-            <img class="logo_img" src="../../assets/images/Logo.png" alt="logo">
-        </div>
-        <div class="header_info">
-            <span class="header_info_text">
-                                I’m Anna from Armenia, developing through real-world experience and hands-on work with a swiss advertising agency. Driven by curiosity and rapid growth.
-            </span>
-        </div>
-    </header>
+<common-header active-page="home"></common-header>
     <div class="hero">
         <div class="socials">
             <ul class="socials_list">
@@ -69,11 +46,20 @@
             </div>
         </div>
 
-        <div class="works">
-            <a class="works_link" href="../catalog/index.html">
-                <span>See my works</span>
-                <img src="../../assets/icons/link.svg" alt="catalog">
-            </a>
+        <div class="link_section">
+            <div class="works">
+                <a class="works_link" href="../catalog/index.html">
+                    <span>See my works</span>
+                    <img src="../../assets/icons/link.svg" alt="catalog">
+                </a>
+            </div>
+
+            <div class="cv">
+                <a class="works_link" href="../../assets/fuckasscv1.pdf" download="AnnaKhachatryan_CV.pdf">
+                    <span>Download CV</span>
+                    <img src="../../assets/icons/link.svg" alt="catalog">
+                </a>
+            </div>
         </div>
     </div>
 </body>
