@@ -41,10 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
             muteBtn.dataset.muted = "true";
             muteBtn.setAttribute("aria-label", "Unmute");
             muteBtn.innerHTML = SVG_MUTED;
+            muteBtn.classList.remove("hidden");
         } else {
             muteBtn.dataset.muted = "false";
             muteBtn.setAttribute("aria-label", "Mute");
             muteBtn.innerHTML = SVG_UNMUTED;
+            muteBtn.classList.remove("hidden");
         }
     };
 
@@ -262,10 +264,12 @@ document.addEventListener('DOMContentLoaded', () => {
             muteBtn.addEventListener("click", (ev) => {
                 ev.stopPropagation();
                 toggleMute(iframe, muteBtn);
+                if (isMobile()) muteBtn.classList.toggle("hidden");
             });
 
             reelItem.addEventListener("click", () => {
                 toggleMute(iframe, muteBtn);
+                if (isMobile()) muteBtn.classList.toggle("hidden");
             });
 
             reelItem.appendChild(iframe);
