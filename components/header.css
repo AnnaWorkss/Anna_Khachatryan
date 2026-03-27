@@ -14,11 +14,16 @@ body{
     width: 100%;
     padding: 0;
     margin: 0;
-    overflow-x:hidden;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     background: #f7f7f7;
     font-family: sf_pro;
+}
+
+common-header {
+    display: block;
+    width: 100%;
 }
 
 a{
@@ -26,11 +31,13 @@ a{
 }
 
 .header{
-    padding: 52px 64px;
+    padding: clamp(20px, 4vw, 52px) clamp(20px, 5vw, 64px);
     display: flex;
     justify-content: space-between;
-    align-items:start;
+    align-items: center;
     position: relative;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .navbar{
@@ -38,6 +45,7 @@ a{
     align-items: center;
     gap: 32px;
     list-style: none;
+    padding-left: 0;
 }
 
 .navbar_section_name a{
@@ -53,12 +61,15 @@ a{
 
 .logo{
     position: absolute;
-    place-self: center;
-    inset: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
 }
 
 .header_info{
-    width: 420px;
+    max-width: 420px;
+    flex: 1;
     text-align: right;
 }
 
@@ -71,4 +82,39 @@ a{
     font-size: 20px;
     font-weight: bold;
     color: #000;
+}
+
+@media (max-width: 900px) {
+    .header_info {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        overflow: visible;
+        overflow-x: hidden;
+    }
+    .header {
+        padding: 20px;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .navbar {
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .navbar_section_name a,
+    .active_page a {
+        font-size: 15px;
+    }
+    .header_info {
+        display: none;
+    }
+    .logo {
+        display: none;
+    }
 }
