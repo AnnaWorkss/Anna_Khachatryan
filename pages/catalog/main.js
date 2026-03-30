@@ -49,8 +49,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     videoEl.src = link;
                 }
                 videoEl.currentTime = 0;
-                videoEl.muted = false; // Always unmuted
-                videoEl.play().catch(e => console.warn("Autoplay prevented", e));
+                videoEl.muted = false; // Try unmuted
+                
+                const playPromise = videoEl.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(e => {
+                        console.warn("Unmuted autoplay prevented. Falling back to muted.", e);
+                        // iOS/Android block unmuted autoplay on scroll. Mute it to force playback.
+                        videoEl.muted = true;
+                        videoEl.play().catch(err => console.warn("Muted autoplay also prevented", err));
+                    });
+                }
             } else {
                 videoEl.pause();
             }
@@ -184,10 +193,13 @@ document.addEventListener('DOMContentLoaded', () => {
             videoEl.style.objectFit = "cover";
             videoEl.loop = true;
             videoEl.playsInline = true;
-            videoEl.style.pointerEvents = 'none';
+            videoEl.style.pointerEvents = 'none'; // pass clicks to reelItem
 
-            // Reels on mobile pause if you tap on them (optional, if you want click to pause/play)
-            // But right now we leave pointer-events: none so clicks go through to reelItem
+            // Allow user to tap the video to toggle mute state when unmute button is hidden
+            reelItem.addEventListener("click", (ev) => {
+                ev.stopPropagation();
+                videoEl.muted = !videoEl.muted;
+            });
 
             reelItem.appendChild(videoEl);
             reelsContainer.appendChild(reelItem);
