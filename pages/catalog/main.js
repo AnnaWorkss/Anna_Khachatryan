@@ -9,9 +9,28 @@ document.addEventListener('DOMContentLoaded', () => {
         reel2: { reel_thumbnail: "../../assets/images/thumbnails/reel2.jpg", reel_link: "../../assets/videos/reel2.mp4" },
         reel6: { reel_thumbnail: "../../assets/images/thumbnails/reel6.jpg", reel_link: "../../assets/videos/reel6.mp4" },
     };
-
+    const SVG_MUTED = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="22" height="22"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17.73 19L19 20.27 20.27 19 5.27 4 4.27 3zM12 4 9.91 6.09 12 8.18V4z"/></svg>`;
+    const SVG_UNMUTED = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="22" height="22"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>`;
 
     const isMobile = () => window.innerWidth <= 768;
+
+    const updateMuteButton = (muteBtn, isMuted) => {
+        if (muteBtn.hideTimeout) clearTimeout(muteBtn.hideTimeout);
+        
+        if (isMuted) {
+            muteBtn.dataset.muted = "true";
+            muteBtn.innerHTML = SVG_MUTED;
+            muteBtn.classList.remove("hidden");
+        } else {
+            muteBtn.dataset.muted = "false";
+            muteBtn.innerHTML = SVG_UNMUTED;
+            muteBtn.classList.remove("hidden");
+            
+            muteBtn.hideTimeout = setTimeout(() => {
+                muteBtn.classList.add("hidden");
+            }, 2000);
+        }
+    };
 
     const catalog = document.getElementById('ctlg');
     const pattern = [1, 1, 2, 1, 2, 2, 2];
@@ -42,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             const videoEl = entry.target.querySelector('video');
             if (!videoEl) return;
+            const muteBtn = entry.target.querySelector('.mute-btn');
             const link = videoEl.getAttribute('data-link');
 
             if (entry.isIntersecting && !reelsModal.classList.contains("hidden")) {
@@ -53,15 +73,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const playPromise = videoEl.play();
                 if (playPromise !== undefined) {
-                    playPromise.catch(e => {
+                    playPromise.then(() => {
+                        if (muteBtn) updateMuteButton(muteBtn, false);
+                    }).catch(e => {
                         console.warn("Unmuted autoplay prevented. Falling back to muted.", e);
                         // iOS/Android block unmuted autoplay on scroll. Mute it to force playback.
                         videoEl.muted = true;
-                        videoEl.play().catch(err => console.warn("Muted autoplay also prevented", err));
+                        videoEl.play().then(() => {
+                            if (muteBtn) updateMuteButton(muteBtn, true);
+                        }).catch(err => console.warn("Muted autoplay also prevented", err));
                     });
                 }
             } else {
                 videoEl.pause();
+                if (muteBtn) {
+                     if (muteBtn.hideTimeout) clearTimeout(muteBtn.hideTimeout);
+                     muteBtn.classList.add('hidden');
+                }
             }
         });
     }, {
@@ -155,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentReelIndex = Array.from(reelsContainer.querySelectorAll('.reel-item')).indexOf(targetReel);
                 targetReel.scrollIntoView({ behavior: 'instant' });
                 const videoEl = targetReel.querySelector('video');
+                const muteBtn = targetReel.querySelector('.mute-btn');
                 if (videoEl) {
                     const link = videoEl.getAttribute('data-link');
                     if (!videoEl.src) {
@@ -162,7 +191,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     videoEl.currentTime = 0;
                     videoEl.muted = false; // Always unmuted
-                    videoEl.play().catch(e => console.warn("Autoplay prevented", e));
+                    
+                    const playPromise = videoEl.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            if (muteBtn) updateMuteButton(muteBtn, false);
+                        }).catch(e => {
+                            videoEl.muted = true;
+                            videoEl.play().then(() => {
+                                if (muteBtn) updateMuteButton(muteBtn, true);
+                            });
+                        });
+                    }
                 }
             }
         };
@@ -195,13 +235,19 @@ document.addEventListener('DOMContentLoaded', () => {
             videoEl.playsInline = true;
             videoEl.style.pointerEvents = 'none'; // pass clicks to reelItem
 
+            const muteBtn = document.createElement("button");
+            muteBtn.classList.add("mute-btn");
+            muteBtn.classList.add("hidden");
+
             // Allow user to tap the video to toggle mute state when unmute button is hidden
             reelItem.addEventListener("click", (ev) => {
                 ev.stopPropagation();
                 videoEl.muted = !videoEl.muted;
+                updateMuteButton(muteBtn, videoEl.muted);
             });
 
             reelItem.appendChild(videoEl);
+            reelItem.appendChild(muteBtn);
             reelsContainer.appendChild(reelItem);
             observer.observe(reelItem);
         }
