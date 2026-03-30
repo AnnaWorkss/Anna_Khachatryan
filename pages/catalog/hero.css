@@ -323,14 +323,15 @@
     opacity: 1;
 }
 
+.mute-btn.hidden {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
 @media (max-width: 768px) {
     .mute-btn {
         opacity: 1;
         transition: opacity 0.5s ease;
-    }
-    .mute-btn.hidden {
-        opacity: 0;
-        pointer-events: none;
     }
 }
 

@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             muteBtn.hideTimeout = setTimeout(() => {
                 muteBtn.classList.add("hidden");
-            }, 2000);
+            }, 200);
         }
     };
 
