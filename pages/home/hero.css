@@ -41,7 +41,7 @@ ul{
     display: flex;
     padding: 0 0 0 clamp(0rem, 5vw, 8rem);
     font-size: clamp(6rem, 12vw, 16vw);
-    letter-spacing: 0.2em;
+    letter-spacing: 75%;
     font-family: pearl;
     user-select: none;
 }
@@ -101,6 +101,16 @@ ul{
     width: 100%;
     display: flex;
     justify-self: end;
+}
+
+.link_container{
+    display: flex;
+    justify-content: center;
+}
+
+.link_section{
+    display: flex;
+    gap: 32px;
 }
 
 .works_link{

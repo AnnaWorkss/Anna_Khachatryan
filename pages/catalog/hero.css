@@ -1,3 +1,21 @@
+@font-face {
+  font-family: sf_pro;
+  src: url(../../assets/fonts/SFPRODISPLAYREGULAR.OTF);
+  font-weight:normal;
+}
+
+@font-face {
+  font-family: sf_pro;
+  src: url(../../assets/fonts/SFPRODISPLAYBOLD.OTF);
+  font-weight:bold;
+}
+
+@font-face {
+  font-family: pearl;
+  src: url(../../assets/fonts/TAN-Pearl-Regular.otf);
+  font-weight:normal;
+}
+
 .heading{
     display: flex;
     flex-direction: column;

@@ -24,7 +24,7 @@ class CommonHeader extends HTMLElement {
                 </div>
                 <div class="header_info">
                     <span class="header_info_text">
-                        I’m Anna from Armenia, developing through real-world experience and hands-on work with a swiss advertising agency. Driven by curiosity and rapid growth.
+                        I’m Anna, freelancer from Armenia, developing through real-world experience and hands-on work with a swiss advertising agency. Driven by curiosity and rapid growth.
                     </span>
                 </div>
             </header>
